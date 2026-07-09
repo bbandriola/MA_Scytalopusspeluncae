@@ -47,3 +47,30 @@ FREQ 1 0 9.03e-10
 0 RESIZELGM = NLGM/NCUR output
 0 RESIZEBLGM = NANC/NLGM output
 ```
+
+To run multiple times: 
+```linux
+#!/bin/bash
+# command: ./Runfsc100Times.sh fscpwd(/media/labgenoma5/DATAPART6/bandriola/Softwares/fsc28_linux64/fsc28) model_name
+
+fsc2=$1
+
+for i in {1..50}
+do
+   PREFIX=$2
+   mkdir run$i
+   cp ${PREFIX}.tpl ${PREFIX}.est ${PREFIX}_DAFpop0.obs run$i"/"
+   cd run$i
+   ${fsc2} -t ${PREFIX}.tpl -e ${PREFIX}.est -d -b50 -M -L40 -c 5 -n 100000
+   cd ..
+done
+```
+
+Copy files and make directories:
+```linux
+mkdir ParamTnotfixed
+cd ParamTnotfixed
+cp ../ParamTfixed/Lin* ./
+cp ../ParamTfixed/Runfsc100times.sh ./
+./Runfsc100times.sh /media/labgenoma5/DATAPART6/bandriola/Softwares/fsc28_linux64/fsc28 Lin > saida.log 2> error.log
+```
