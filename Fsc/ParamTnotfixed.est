@@ -1,0 +1,22 @@
+// Priors and rules file
+// *********************
+[PARAMETERS]
+//#isInt? #name #dist, #min #max
+//all POP are in number of haploid individuals
+1 NCUR logunif 50 2000000 output bounded
+1 NLGM logunif 50 2000000 output bounded
+1 NBLGM1 logunif 50 2000000 output bounded
+1 NBLGM2 logunif 50 2000000 output bounded
+1 NINTGLA logunif 50 2000000 output bounded
+1 NGLAANC logunif 50 2000000 output bounded
+1 TLGM logunif 10 65000 output bounded
+1 TBLGM1 logunif TLGM 65000 output paramInRange
+1 TBLGM2 logunif TBLGM1 65000 output paramInRange
+1 TINTGLA logunif TBLGM2 65000 output paramInRange
+1 TGLAANC logunif TINTGLA 65000 output paramInRange
+[COMPLEX PARAMETERS]
+0 RESIZELGM = NLGM/NCUR output
+0 RESIZEBLGM1 = NBLGM1/NLGM output
+0 RESIZEBLGM2 = NBLGM2/NBLGM1 output
+0 RESIZEINTGLA = NINTGLA/NBLGM2 output
+0 RESIZEGLAANC = NGLAANC/NINTGLA output
