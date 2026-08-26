@@ -91,7 +91,7 @@ my_sample_order <- c("SerradaLontras1_lin1","SerradaLontras2_lin1","SerradaLontr
                      "SerraDaOuricana1_lin1","SerraDaOuricana2_lin1","SerraDaOuricana3_lin1","SerraDaOuricana4_lin1",
                      "NorteMantiqueira1_lin3","NorteMantiqueira2_lin3",
                      "NorteMantiqueira3_lin3","NorteMantiqueira4_lin3","SulMantiqueira2_lin3","SulMantiqueira3_lin3","SulMantiqueira4_lin3",
-                     "SulMantiqueira5_lin3","Caparao_lin3","CunhaSerraDoMarRJ2_lin4","BocainaSerraDoMarRJ1_lin4",
+                     "SulMantiqueira5_lin3","CunhaSerraDoMarRJ2_lin4","BocainaSerraDoMarRJ1_lin4",
                      "BocainaSerraDoMarRJ3_lin4","BocainaSerraDoMarRJ4_lin4","DevonianaPR8_lin5","DevonianaSP3_lin5",
                      "DevonianaSP4_lin5","DevonianaPR5_lin5","DevonianaPR6_lin5","DevonianaPR7_lin5","DevonianaPR2_lin5"
                      ,"DevonianaSP1_lin5","DevonianaSP2_lin5","DevonianaPR3_lin5","DevonianaPR4_lin5","NortePR1_lin7",
@@ -101,6 +101,7 @@ my_sample_order <- c("SerradaLontras1_lin1","SerradaLontras2_lin1","SerradaLontr
                      "BoaEsperanca1_lin6","BoaEsperanca2_lin6","BoaEsperanca3_lin7")  # your list here
 my_sample_order_rev <- rev(my_sample_order)
 summed_roh <- summed_roh %>%
+  filter(Sample %in% my_sample_order) %>%
   mutate(Sample = factor(Sample, levels = my_sample_order_rev))
 roh_colors <- c(
   "< 100 kb"      = "#568743",
