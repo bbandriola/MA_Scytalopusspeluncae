@@ -1,5 +1,6 @@
 # source ~/Softwares/PHLASH/bin/activate
 # conda activate phlash # 10.32.52.13
+# phlash does not accept chromossomes/scaffolds with ., so i needed to rename my chr before running the script
 
 import os.path
 import pickle
