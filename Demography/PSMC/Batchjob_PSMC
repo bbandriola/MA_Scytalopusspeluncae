@@ -1,0 +1,99 @@
+#!/bin/bash
+
+################-> are comments
+################-> "#SBATCH" (only one "#") are Batch Script commands
+
+################ Verbose mode
+
+#SBATCH --export=ALL
+
+################
+
+################ Change these parameters according to your requisites
+
+## nodes
+#SBATCH -N 1
+## or
+## tasks (threads)
+##SBATCH -n 10
+
+## time
+##SBATCH -t 96:00:00
+## time formats =  "minutes", "minutes:seconds", "hours:minutes:seconds", "days-hours", "days-hours:minutes" and "days-hours:minutes:seconds"
+
+# --exclusive alloc all threads from each node. If not set, it will alloc only threads set by "-n" parameter
+#SBATCH --exclusive
+
+################ Please, change this e-mail address to yours
+
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=bruna.andriola@edu.pucrs.br
+
+################
+
+#SBATCH --no-requeue
+
+################ Output options
+
+
+## %%     The character "%".
+## %A     Job array's master job allocation number.
+## %a     Job array ID (index) number.
+## %J     jobid.stepid of the running job. (e.g. "128.0")
+## %j     jobid of the running job.
+## %N     short hostname. This will create a separate IO file per node.
+## %n     Node identifier relative to current job (e.g. "0" is the first node of the running job) This will create  a  separate IO file per node.
+## %s     stepid of the running job.
+## %t     task identifier (rank) relative to current job. This will create a separate IO file per task.
+## %u     User name.
+## %x     Job name.
+
+## different files for normal output end error output
+##SBATCH -o %x.%j.out -e %x.%j.err
+## or
+## all output in same file
+#SBATCH -o %x.%j.out
+
+################
+
+################ Please, change this directory to your working dir.
+
+#SBATCH -D /home/bruna.andriola/Scytalopus/PSMC/
+
+################
+
+################
+echo Running on host `hostname`
+echo
+echo Initial Time is `date`
+echo
+echo Directory is `pwd`
+echo
+echo This jobs runs on the following nodes:
+echo $SLURM_JOB_NODELIST
+echo
+echo JOB_ID:
+echo $SLURM_JOBID
+echo ################
+
+############# Command example, if using MPI
+
+source /labgenomaarea/bandriola/miniconda3-vars.sh
+conda activate bcftools
+bash 1_FilesGeneration.sh
+echo "Done file generation. Going to step 2."
+bash 2_psmcInput.sh
+echo "Done PSMC Input generation. Going to step 3."
+bash 3_psmcRun.sh
+echo "Done running PSMC :) Be happy, you made it o/"
+echo "agora tem que plotar minha filha"
+
+################
+
+############# If running a sequential or openMP program
+
+#./application
+
+################
+
+echo Final Time is `date`
